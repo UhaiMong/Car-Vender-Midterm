@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<h1>In Details</h1>
+<div class="col">
+    <div class="card h-100">
+        <img src="{{ car.image.url }}"
+            class="card-img-top"
+            alt="cars">
+        <div class="card-body">
+            <h5 class="card-title">{{car.brand}}</h5>
+            <p class="card-text">Features: {{car.description}}</p>
+            <p>In Stock: {{car.quantity}}</p>
+            <p>Model: {{car.model_name}} </p>
+            <p>Marketed in : {{car.year}} </p>
+            <strong>Price: BDT {{car.price}} </strong>
+        </div>
+        {% if user.is_authenticated %}
+        <a href="{% url 'purchaseCar' car.id %}"
+            class="my-5">
+            <button class="btn btn-primary text-light fw-bold">Buy Now</button>
+        </a>
+        {% else %}
+        <small style="margin-left: 12px;">You need to login to buy the car</small>
+        <a style="margin-left: 12px;"
+            class="my-4"
+            href="{% url 'login' %}">Go to login</a>
+        {% endif %}
+    </div>
+</div>
+<div>
+    <h2>Comments</h2>
+    {% if comments %}
+    {% for comment in comments %}
+    <p>{{ comment.commenter_name }} said:</p>
+    <h6> {{ comment.comment_text }}</h6>
+    {% endfor %}
+    {% else %}
+    <p>Nobody commented yet</p>
+    {% endif %}
+    {% load crispy_forms_tags %}
+    <h2>Leave a Comment</h2>
+    <form method="post"
+        action="{% url 'details' car.id %}">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <input class="btn btn-primary mb-4"
+            type="submit"
+            value="Submit Comment">
+    </form>
+</div>
+{% endblock %}

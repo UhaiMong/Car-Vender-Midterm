@@ -1,4 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Home</h1>
+{% load static %}
+<h1>Car Vender</h1>
+<div class="d-flex gap-4 align-items-center mb-5">
+    <div style="width: 50%;">
+        <p class="fs-3 fw-bold">{{ text }}</p>
+    </div>
+    <div style="width: 50%;">
+        <img src="{% static 'toyota1.jpg' %}"
+            alt="Home Image">
+    </div>
+</div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for car in cars %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="{{ car.image.url }}"
+                class="card-img-top"
+                alt="cars">
+            <div class="card-body">
+                <h5 class="card-title">{{car.brand}}</h5>
+                <p class="card-text">Features: {{car.description}}</p>
+                <p>In Stock: {{car.quantity}}</p>
+            </div>
+            <button class="btn btn-primary"><a class="text-decoration-none text-light fw-bold"
+                    href="{% url 'details' car.id %}">Details</a></button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<h1 class="text-center">Filter by brand name</h1>
+<div class="d-flex justify-content-center gap-3 mb-4">
+    {% for brand in brands %}
+    <button class="btn btn-primary">
+        <a href="{% url 'brand_wise' brand.name %}"
+            class="text-decoration-none text-light fw-bold inline">{{ brand.name }}</a>
+    </button>
+    {% endfor %}
+</div>
 {% endblock %}

@@ -1,4 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Profile</h1>
+{% if data %}
+<h1 class="my-4">Welcome, {{ data.username }}!</h1>
+<p>Email: {{ data.email }}</p>
+<p>First Name: {{data.first_name}} </p>
+<p>Last Name: {{data.last_name}} </p>
+{% else %}
+<p>Please log in to view your profile.</p>
+{% endif %}
+<button class="btn btn-primary">
+    <a class="text-decoration-none fw-bold text-light"
+        href="{% url 'updateProfile' %}">Update Profile</a>
+</button>
+{% if user_purchases %}
+<h1>Your Order History:</h1>
+<ul>
+    {% for purchase in user_purchases %}
+    <li>{{ purchase.car }} - {{ purchase.purchase_date }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>You haven't made any purchases yet.</p>
+{% endif %}
 {% endblock %}

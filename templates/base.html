@@ -16,7 +16,7 @@
     <title>Car Vender</title>
 </head>
 
-<body>
+<body style="background-color: beige;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand"
@@ -38,6 +38,11 @@
                             aria-current="page"
                             href="{% url 'homepage' %}">Home</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active"
+                            aria-current="page"
+                            href="{% url 'add_cars' %}">Add Car</a>
+                    </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link"
@@ -57,7 +62,7 @@
                             href="{% url 'login' %}">Login</a></button>
                     <button class="btn btn-outline-success"
                         type="submit"><a class="text-light text-decoration-none"
-                            href="{% url 'register' %}">Register</a></button>
+                            href="{% url 'signup' %}">Signup</a></button>
                     {% endif %}
                 </div>
             </div>

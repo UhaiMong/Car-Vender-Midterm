@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<h1>Car Stores</h1>
+
+<form action=""
+    method="post">
+    {% csrf_token %}
+    {{car |crispy}}
+    <button type="submit"
+        class="btn btn-primary text-light fw-bold">Submit</button>
+</form>
+
+{% endblock %}
